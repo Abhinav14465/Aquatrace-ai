@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0f81cb9eecf167c6f545cb559eac9d17 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-textpath@1.2.3/leaflet.textpath.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+</head>
+<body>
+    
+    
+    <div style="
+        position: fixed; bottom: 30px; left: 20px; z-index: 9999;
+        background: rgba(20,20,20,0.85); color: white;
+        padding: 12px 16px; border-radius: 10px;
+        font-family: sans-serif; font-size: 13px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+        <b>Suspicion Level</b><br>
+        <span style="color:#ff3b3b;">●</span> High (≥0.70)<br>
+        <span style="color:#ff9d3b;">●</span> Moderate (0.55–0.69)<br>
+        <span style="color:#ffd93b;">●</span> Low-moderate (0.40–0.54)<br>
+        <span style="color:#4fa8ff;">●</span> Low (&lt;0.40)<br>
+        <hr style="margin:6px 0; border-color:#444;">
+        <span style="color:#00e5ff;">◉</span> Spill origin &amp; uncertainty zone
+    </div>
+    
+    
+            <div class="folium-map" id="map_0f81cb9eecf167c6f545cb559eac9d17" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0f81cb9eecf167c6f545cb559eac9d17 = L.map(
+                "map_0f81cb9eecf167c6f545cb559eac9d17",
+                {
+                    center: [12.84, 80.52],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 9,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+
+            
+
+        
+    
+            var tile_layer_16d817dcdd5e781519f792de5d4798a3 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_16d817dcdd5e781519f792de5d4798a3.addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            var tile_layer_fb7f8551170347cb02de6b333ebd2326 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_fb7f8551170347cb02de6b333ebd2326.addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            var marker_9aa725bc3e1052589dcf86f0a1f8277c = L.marker(
+                [12.84, 80.52],
+                {
+}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            var div_icon_10b4fc924c0f1db008a778224a78ef1c = L.divIcon({
+  "html": "\n    \u003cdiv style=\"position: relative; width: 22px; height: 22px;\"\u003e\n        \u003cdiv style=\"\n            position: absolute; top: 50%; left: 50%;\n            width: 14px; height: 14px; margin: -7px 0 0 -7px;\n            background: #00e5ff; border-radius: 50%;\n            box-shadow: 0 0 8px 2px #00e5ff;\n            z-index: 2;\"\u003e\n        \u003c/div\u003e\n        \u003cdiv style=\"\n            position: absolute; top: 50%; left: 50%;\n            width: 14px; height: 14px; margin: -7px 0 0 -7px;\n            background: rgba(0,229,255,0.6); border-radius: 50%;\n            animation: pulse 1.6s infinite;\n            z-index: 1;\"\u003e\n        \u003c/div\u003e\n    \u003c/div\u003e\n    \u003cstyle\u003e\n        @keyframes pulse {\n            0%   { transform: scale(1);   opacity: 0.8; }\n            70%  { transform: scale(3.2); opacity: 0;   }\n            100% { transform: scale(3.2); opacity: 0;   }\n        }\n    \u003c/style\u003e\n    ",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_9aa725bc3e1052589dcf86f0a1f8277c.bindTooltip(
+                `<div>
+                     ⚠ Estimated spill origin
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9aa725bc3e1052589dcf86f0a1f8277c.setIcon(div_icon_10b4fc924c0f1db008a778224a78ef1c);
+            
+    
+            var circle_6c739540aefe16817f3fd826c1db675c = L.circle(
+                [12.84, 80.52],
+                {"bubblingMouseEvents": true, "color": "#00e5ff", "dashArray": "6,6", "dashOffset": null, "fill": true, "fillColor": "#00e5ff", "fillOpacity": 0.07, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5000, "stroke": true, "weight": 1.5}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            circle_6c739540aefe16817f3fd826c1db675c.bindTooltip(
+                `<div>
+                     Uncertainty zone (5 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_b2f109cd4027955afbbc67995fdef8fc = L.polyline(
+                [[12.56973, 80.4276], [12.58233, 80.43362], [12.59452, 80.44047], [12.60739, 80.44586], [12.62027, 80.45124], [12.63276, 80.45749], [12.64499, 80.46427], [12.65773, 80.46997], [12.67056, 80.47546], [12.68346, 80.48078], [12.69611, 80.4867], [12.70853, 80.4931], [12.72122, 80.49893], [12.73329, 80.50602], [12.74582, 80.51219], [12.75805, 80.51897], [12.77021, 80.52587], [12.78224, 80.53302], [12.7941, 80.54048], [12.80614, 80.54759], [12.81836, 80.55441], [12.82996, 80.56226], [12.84146, 80.57027], [12.85239, 80.57909], [12.86265, 80.58872], [12.87378, 80.59726], [12.88481, 80.60595], [12.89572, 80.61479], [12.90628, 80.62407], [12.91713, 80.63299], [12.92833, 80.64144], [12.9392, 80.65033], [12.95039, 80.65881], [12.96252, 80.66577], [12.97441, 80.67317], [12.98541, 80.68189]],
+                {"bubblingMouseEvents": true, "color": "#ff3b3b", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#ff3b3b", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.9, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            poly_line_b2f109cd4027955afbbc67995fdef8fc.bindTooltip(
+                `<div>
+                     #1 VESSEL STRONG — High suspicion (score=0.782)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            poly_line_b2f109cd4027955afbbc67995fdef8fc.setText(
+                "   \u25ba   ",
+                {
+  "repeat": true,
+  "center": false,
+  "below": false,
+  "offset": 6,
+  "orientation": 0,
+  "attributes": {
+  "fill": "#ff3b3b",
+  "font-weight": "bold",
+  "font-size": "13",
+},
+}
+            );
+        
+    
+            var marker_83b8e70d5d5ea14abca66f6a97dea50b = L.marker(
+                [12.98541, 80.68189],
+                {
+}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            var div_icon_f8b11fe7adcd5cd888ace28c46cd1482 = L.divIcon({
+  "html": "\n        \u003cdiv style=\"\n            width: 30px; height: 30px;\n            background: #ff3b3b;\n            border: 2px solid white; border-radius: 50%;\n            display: flex; align-items: center; justify-content: center;\n            color: #111; font-weight: bold; font-size: 12px;\n            box-shadow: 0 0 6px rgba(0,0,0,0.6);\n            font-family: sans-serif;\"\u003e\n            1\n        \u003c/div\u003e\n        ",
+  "iconSize": [30, 30],
+  "iconAnchor": [15, 15],
+  "className": "empty",
+});
+        
+    
+        var popup_0a883e77679f366253f9b55afc888b76 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c9bf77450724a2720e448cb1fdcdfc1b = $(`<div id="html_c9bf77450724a2720e448cb1fdcdfc1b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: sans-serif; min-width: 180px;">             <b>#1 VESSEL STRONG</b><br>             <span style="color:#ff3b3b; font-weight:bold;">High suspicion</span><br>             <hr style="margin:4px 0;">             MMSI: 111111111<br>             Type: Tanker<br>             Distance: 4.44 km<br>             Time Δ: 1.33 h<br>             Score: 0.782<br>             <i>VESSEL STRONG (111111111) entered the 5 km origin uncertainty zone; came within 4.4 km of the estimated origin; was tracked 1.3 h from the estimated spill time.</i>         </div>         </div>`)[0];
+                popup_0a883e77679f366253f9b55afc888b76.setContent(html_c9bf77450724a2720e448cb1fdcdfc1b);
+            
+        
+
+        marker_83b8e70d5d5ea14abca66f6a97dea50b.bindPopup(popup_0a883e77679f366253f9b55afc888b76)
+        ;
+
+        
+    
+    
+            marker_83b8e70d5d5ea14abca66f6a97dea50b.bindTooltip(
+                `<div>
+                     #1 VESSEL STRONG (0.782)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_83b8e70d5d5ea14abca66f6a97dea50b.setIcon(div_icon_f8b11fe7adcd5cd888ace28c46cd1482);
+            
+    
+            var poly_line_f90eaf05c39c3859001d2b660013885e = L.polyline(
+                [[12.65982, 80.2428], [12.66965, 80.25287], [12.67869, 80.2637], [12.68747, 80.27476], [12.69868, 80.28318], [12.711, 80.28978], [12.72391, 80.29508], [12.73703, 80.29981], [12.74997, 80.30501], [12.76331, 80.30904], [12.77702, 80.31141], [12.7905, 80.31491], [12.80401, 80.31828], [12.81776, 80.32043], [12.83157, 80.32207]],
+                {"bubblingMouseEvents": true, "color": "#4fa8ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#4fa8ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.9, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            poly_line_f90eaf05c39c3859001d2b660013885e.bindTooltip(
+                `<div>
+                     #2 VESSEL BG 13 — Low suspicion (score=0.394)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            poly_line_f90eaf05c39c3859001d2b660013885e.setText(
+                "   \u25ba   ",
+                {
+  "repeat": true,
+  "center": false,
+  "below": false,
+  "offset": 6,
+  "orientation": 0,
+  "attributes": {
+  "fill": "#4fa8ff",
+  "font-weight": "bold",
+  "font-size": "13",
+},
+}
+            );
+        
+    
+            var marker_703d58893e76a3300fea1fac496843eb = L.marker(
+                [12.83157, 80.32207],
+                {
+}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            var div_icon_6d4f0f9caaaa8b0ee23e1e5346b9bdbe = L.divIcon({
+  "html": "\n        \u003cdiv style=\"\n            width: 30px; height: 30px;\n            background: #4fa8ff;\n            border: 2px solid white; border-radius: 50%;\n            display: flex; align-items: center; justify-content: center;\n            color: #111; font-weight: bold; font-size: 12px;\n            box-shadow: 0 0 6px rgba(0,0,0,0.6);\n            font-family: sans-serif;\"\u003e\n            2\n        \u003c/div\u003e\n        ",
+  "iconSize": [30, 30],
+  "iconAnchor": [15, 15],
+  "className": "empty",
+});
+        
+    
+        var popup_53a57aebb382ebc361b184d7d654b085 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_566c6ce5eab2e0fb2aee029ccfa0a3b8 = $(`<div id="html_566c6ce5eab2e0fb2aee029ccfa0a3b8" style="width: 100.0%; height: 100.0%;">         <div style="font-family: sans-serif; min-width: 180px;">             <b>#2 VESSEL BG 13</b><br>             <span style="color:#4fa8ff; font-weight:bold;">Low suspicion</span><br>             <hr style="margin:4px 0;">             MMSI: 900000013<br>             Type: Cargo<br>             Distance: 21.48 km<br>             Time Δ: 6.83 h<br>             Score: 0.394<br>             <i>VESSEL BG 13 (900000013) came within 21.5 km of the estimated origin; was tracked 6.8 h from the estimated spill time.</i>         </div>         </div>`)[0];
+                popup_53a57aebb382ebc361b184d7d654b085.setContent(html_566c6ce5eab2e0fb2aee029ccfa0a3b8);
+            
+        
+
+        marker_703d58893e76a3300fea1fac496843eb.bindPopup(popup_53a57aebb382ebc361b184d7d654b085)
+        ;
+
+        
+    
+    
+            marker_703d58893e76a3300fea1fac496843eb.bindTooltip(
+                `<div>
+                     #2 VESSEL BG 13 (0.394)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_703d58893e76a3300fea1fac496843eb.setIcon(div_icon_6d4f0f9caaaa8b0ee23e1e5346b9bdbe);
+            
+    
+            var poly_line_173b80f837fa5c9fc7efc2675b528bcb = L.polyline(
+                [[13.20036, 80.8896], [13.18952, 80.89603], [13.17851, 80.90212], [13.16717, 80.90757], [13.15626, 80.91387], [13.14553, 80.92048], [13.13479, 80.92707], [13.12432, 80.93411], [13.11355, 80.94064], [13.10318, 80.94783], [13.0927, 80.95486], [13.08209, 80.96167], [13.072, 80.96927], [13.06231, 80.9774], [13.05314, 80.98614], [13.04409, 80.99501], [13.03573, 81.00457], [13.02863, 81.01514], [13.02254, 81.02636], [13.0176, 81.03817]],
+                {"bubblingMouseEvents": true, "color": "#4fa8ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#4fa8ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.9, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            poly_line_173b80f837fa5c9fc7efc2675b528bcb.bindTooltip(
+                `<div>
+                     #3 VESSEL FARTIME — Low suspicion (score=0.325)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            poly_line_173b80f837fa5c9fc7efc2675b528bcb.setText(
+                "   \u25ba   ",
+                {
+  "repeat": true,
+  "center": false,
+  "below": false,
+  "offset": 6,
+  "orientation": 0,
+  "attributes": {
+  "fill": "#4fa8ff",
+  "font-weight": "bold",
+  "font-size": "13",
+},
+}
+            );
+        
+    
+            var marker_3c4d6936e4da894c14decc475d6d75ac = L.marker(
+                [13.0176, 81.03817],
+                {
+}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            var div_icon_41b3b54f7fad3f85bac9dbb404dcb958 = L.divIcon({
+  "html": "\n        \u003cdiv style=\"\n            width: 30px; height: 30px;\n            background: #4fa8ff;\n            border: 2px solid white; border-radius: 50%;\n            display: flex; align-items: center; justify-content: center;\n            color: #111; font-weight: bold; font-size: 12px;\n            box-shadow: 0 0 6px rgba(0,0,0,0.6);\n            font-family: sans-serif;\"\u003e\n            3\n        \u003c/div\u003e\n        ",
+  "iconSize": [30, 30],
+  "iconAnchor": [15, 15],
+  "className": "empty",
+});
+        
+    
+        var popup_077961615a45a2898226b2cb5bb6eac1 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c74dcb821dfe663fcc35ff654437ac8d = $(`<div id="html_c74dcb821dfe663fcc35ff654437ac8d" style="width: 100.0%; height: 100.0%;">         <div style="font-family: sans-serif; min-width: 180px;">             <b>#3 VESSEL FARTIME</b><br>             <span style="color:#4fa8ff; font-weight:bold;">Low suspicion</span><br>             <hr style="margin:4px 0;">             MMSI: 333333333<br>             Type: Cargo<br>             Distance: 54.8 km<br>             Time Δ: 1.33 h<br>             Score: 0.325<br>             <i>VESSEL FARTIME (333333333) came within 54.8 km of the estimated origin; was tracked 1.3 h from the estimated spill time.</i>         </div>         </div>`)[0];
+                popup_077961615a45a2898226b2cb5bb6eac1.setContent(html_c74dcb821dfe663fcc35ff654437ac8d);
+            
+        
+
+        marker_3c4d6936e4da894c14decc475d6d75ac.bindPopup(popup_077961615a45a2898226b2cb5bb6eac1)
+        ;
+
+        
+    
+    
+            marker_3c4d6936e4da894c14decc475d6d75ac.bindTooltip(
+                `<div>
+                     #3 VESSEL FARTIME (0.325)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3c4d6936e4da894c14decc475d6d75ac.setIcon(div_icon_41b3b54f7fad3f85bac9dbb404dcb958);
+            
+    
+            var poly_line_a8499b3bcb0fa4e06e296193ba8d072e = L.polyline(
+                [[12.90591, 79.97933], [12.89285, 79.99601], [12.87971, 80.01262], [12.86668, 80.02933], [12.85363, 80.04602], [12.84088, 80.06294], [12.82922, 80.08068]],
+                {"bubblingMouseEvents": true, "color": "#4fa8ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#4fa8ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            poly_line_a8499b3bcb0fa4e06e296193ba8d072e.bindTooltip(
+                `<div>
+                     #4 VESSEL BG 10 — Low suspicion (score=0.313)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            poly_line_a8499b3bcb0fa4e06e296193ba8d072e.setText(
+                "   \u25ba   ",
+                {
+  "repeat": true,
+  "center": false,
+  "below": false,
+  "offset": 6,
+  "orientation": 0,
+  "attributes": {
+  "fill": "#4fa8ff",
+  "font-weight": "bold",
+  "font-size": "13",
+},
+}
+            );
+        
+    
+            var marker_02a2058904b1ca5bfdb33d689bb2ed7d = L.marker(
+                [12.82922, 80.08068],
+                {
+}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            var div_icon_c77a89c8958a191221cfca57e511ee38 = L.divIcon({
+  "html": "\n        \u003cdiv style=\"\n            width: 22px; height: 22px;\n            background: #4fa8ff;\n            border: 2px solid white; border-radius: 50%;\n            display: flex; align-items: center; justify-content: center;\n            color: #111; font-weight: bold; font-size: 10px;\n            box-shadow: 0 0 6px rgba(0,0,0,0.6);\n            font-family: sans-serif;\"\u003e\n            4\n        \u003c/div\u003e\n        ",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+        var popup_cf6d65a944182f8c5a23442f929fbf2e = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_3b2fa7a035f07fc3796eed610094f7ae = $(`<div id="html_3b2fa7a035f07fc3796eed610094f7ae" style="width: 100.0%; height: 100.0%;">         <div style="font-family: sans-serif; min-width: 180px;">             <b>#4 VESSEL BG 10</b><br>             <span style="color:#4fa8ff; font-weight:bold;">Low suspicion</span><br>             <hr style="margin:4px 0;">             MMSI: 900000010<br>             Type: Cargo<br>             Distance: 47.64 km<br>             Time Δ: 2.92 h<br>             Score: 0.313<br>             <i>VESSEL BG 10 (900000010) came within 47.6 km of the estimated origin; was tracked 2.9 h from the estimated spill time.</i>         </div>         </div>`)[0];
+                popup_cf6d65a944182f8c5a23442f929fbf2e.setContent(html_3b2fa7a035f07fc3796eed610094f7ae);
+            
+        
+
+        marker_02a2058904b1ca5bfdb33d689bb2ed7d.bindPopup(popup_cf6d65a944182f8c5a23442f929fbf2e)
+        ;
+
+        
+    
+    
+            marker_02a2058904b1ca5bfdb33d689bb2ed7d.bindTooltip(
+                `<div>
+                     #4 VESSEL BG 10 (0.313)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_02a2058904b1ca5bfdb33d689bb2ed7d.setIcon(div_icon_c77a89c8958a191221cfca57e511ee38);
+            
+    
+            var poly_line_3d2b000cd933b5d9476333d6c4516122 = L.polyline(
+                [[12.61477, 80.6586], [12.5991, 80.65275], [12.58365, 80.6463], [12.56752, 80.64189], [12.55149, 80.63715], [12.53537, 80.63275], [12.51933, 80.62804], [12.50345, 80.62282], [12.4873, 80.61851], [12.47077, 80.61622], [12.45408, 80.61611], [12.43745, 80.61476], [12.42088, 80.61279], [12.40435, 80.61042], [12.38773, 80.60896], [12.37113, 80.60727], [12.35446, 80.60807], [12.33787, 80.60625], [12.32122, 80.60516]],
+                {"bubblingMouseEvents": true, "color": "#4fa8ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#4fa8ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            poly_line_3d2b000cd933b5d9476333d6c4516122.bindTooltip(
+                `<div>
+                     #5 VESSEL CLOSE WRONGTIME — Low suspicion (score=0.268)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            poly_line_3d2b000cd933b5d9476333d6c4516122.setText(
+                "   \u25ba   ",
+                {
+  "repeat": true,
+  "center": false,
+  "below": false,
+  "offset": 6,
+  "orientation": 0,
+  "attributes": {
+  "fill": "#4fa8ff",
+  "font-weight": "bold",
+  "font-size": "13",
+},
+}
+            );
+        
+    
+            var marker_7db5d9b690e0ca726fc2c9c523541503 = L.marker(
+                [12.32122, 80.60516],
+                {
+}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            var div_icon_a761a5d1036cba872888feb1c3dd9021 = L.divIcon({
+  "html": "\n        \u003cdiv style=\"\n            width: 22px; height: 22px;\n            background: #4fa8ff;\n            border: 2px solid white; border-radius: 50%;\n            display: flex; align-items: center; justify-content: center;\n            color: #111; font-weight: bold; font-size: 10px;\n            box-shadow: 0 0 6px rgba(0,0,0,0.6);\n            font-family: sans-serif;\"\u003e\n            5\n        \u003c/div\u003e\n        ",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+        var popup_2ffc231506f83ae4e5c1f5c195df08c3 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_59cf476bcb8c35aed1ae815e9d2515a3 = $(`<div id="html_59cf476bcb8c35aed1ae815e9d2515a3" style="width: 100.0%; height: 100.0%;">         <div style="font-family: sans-serif; min-width: 180px;">             <b>#5 VESSEL CLOSE WRONGTIME</b><br>             <span style="color:#4fa8ff; font-weight:bold;">Low suspicion</span><br>             <hr style="margin:4px 0;">             MMSI: 222222222<br>             Type: Cargo<br>             Distance: 29.21 km<br>             Time Δ: 11.0 h<br>             Score: 0.268<br>             <i>VESSEL CLOSE WRONGTIME (222222222) came within 29.2 km of the estimated origin; was tracked 11.0 h from the estimated spill time.</i>         </div>         </div>`)[0];
+                popup_2ffc231506f83ae4e5c1f5c195df08c3.setContent(html_59cf476bcb8c35aed1ae815e9d2515a3);
+            
+        
+
+        marker_7db5d9b690e0ca726fc2c9c523541503.bindPopup(popup_2ffc231506f83ae4e5c1f5c195df08c3)
+        ;
+
+        
+    
+    
+            marker_7db5d9b690e0ca726fc2c9c523541503.bindTooltip(
+                `<div>
+                     #5 VESSEL CLOSE WRONGTIME (0.268)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7db5d9b690e0ca726fc2c9c523541503.setIcon(div_icon_a761a5d1036cba872888feb1c3dd9021);
+            
+    
+            var poly_line_85e67684bdfff0cf965cd5d38bcc073c = L.polyline(
+                [[13.33968, 80.7251], [13.32994, 80.74075], [13.31944, 80.75587], [13.30807, 80.77031], [13.29711, 80.78508], [13.28844, 80.80137], [13.27733, 80.81603], [13.26765, 80.83171], [13.25915, 80.8481]],
+                {"bubblingMouseEvents": true, "color": "#4fa8ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#4fa8ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            poly_line_85e67684bdfff0cf965cd5d38bcc073c.bindTooltip(
+                `<div>
+                     #6 VESSEL BG 8 — Low suspicion (score=0.216)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            poly_line_85e67684bdfff0cf965cd5d38bcc073c.setText(
+                "   \u25ba   ",
+                {
+  "repeat": true,
+  "center": false,
+  "below": false,
+  "offset": 6,
+  "orientation": 0,
+  "attributes": {
+  "fill": "#4fa8ff",
+  "font-weight": "bold",
+  "font-size": "13",
+},
+}
+            );
+        
+    
+            var marker_655997911b322c7da27df981e230079c = L.marker(
+                [13.25915, 80.8481],
+                {
+}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            var div_icon_9cb7a24f01ee56fe6e6c43de2ffe2dbe = L.divIcon({
+  "html": "\n        \u003cdiv style=\"\n            width: 22px; height: 22px;\n            background: #4fa8ff;\n            border: 2px solid white; border-radius: 50%;\n            display: flex; align-items: center; justify-content: center;\n            color: #111; font-weight: bold; font-size: 10px;\n            box-shadow: 0 0 6px rgba(0,0,0,0.6);\n            font-family: sans-serif;\"\u003e\n            6\n        \u003c/div\u003e\n        ",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+        var popup_d0aff16bed37cdb1ec9d6ab293656781 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_06a3a257855d5ebad51c62a78668a3ca = $(`<div id="html_06a3a257855d5ebad51c62a78668a3ca" style="width: 100.0%; height: 100.0%;">         <div style="font-family: sans-serif; min-width: 180px;">             <b>#6 VESSEL BG 8</b><br>             <span style="color:#4fa8ff; font-weight:bold;">Low suspicion</span><br>             <hr style="margin:4px 0;">             MMSI: 900000008<br>             Type: Container<br>             Distance: 58.25 km<br>             Time Δ: 4.83 h<br>             Score: 0.216<br>             <i>VESSEL BG 8 (900000008) came within 58.2 km of the estimated origin; was tracked 4.8 h from the estimated spill time.</i>         </div>         </div>`)[0];
+                popup_d0aff16bed37cdb1ec9d6ab293656781.setContent(html_06a3a257855d5ebad51c62a78668a3ca);
+            
+        
+
+        marker_655997911b322c7da27df981e230079c.bindPopup(popup_d0aff16bed37cdb1ec9d6ab293656781)
+        ;
+
+        
+    
+    
+            marker_655997911b322c7da27df981e230079c.bindTooltip(
+                `<div>
+                     #6 VESSEL BG 8 (0.216)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_655997911b322c7da27df981e230079c.setIcon(div_icon_9cb7a24f01ee56fe6e6c43de2ffe2dbe);
+            
+    
+            L.control.fullscreen(
+                {
+  "position": "topright",
+  "title": "Full Screen",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+        
+    
+            var tile_layer_2b411377493d43fa46ccb4b81252f357 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detect_retina": false, "max_native_zoom": 20, "max_zoom": 20, "min_zoom": 0, "no_wrap": false, "opacity": 1, "subdomains": "abcd", "tms": false}
+            );
+            var mini_map_843a8229ed600e6575a8f4a656bade2c = new L.Control.MiniMap(
+                tile_layer_2b411377493d43fa46ccb4b81252f357,
+                {
+  "position": "bottomright",
+  "width": 150,
+  "height": 150,
+  "collapsedWidth": 25,
+  "collapsedHeight": 25,
+  "zoomLevelOffset": -5,
+  "centerFixed": false,
+  "zoomAnimation": false,
+  "toggleDisplay": true,
+  "autoToggleDisplay": false,
+  "minimized": false,
+}
+            );
+            map_0f81cb9eecf167c6f545cb559eac9d17.addControl(mini_map_843a8229ed600e6575a8f4a656bade2c);
+        
+    
+            var layer_control_fd88c5ff709cc669468b1a0c4aa801d3_layers = {
+                base_layers : {
+                    "cartodbdarkmatter" : tile_layer_16d817dcdd5e781519f792de5d4798a3,
+                    "Light map" : tile_layer_fb7f8551170347cb02de6b333ebd2326,
+                },
+                overlays :  {
+                },
+            };
+            let layer_control_fd88c5ff709cc669468b1a0c4aa801d3 = L.control.layers(
+                layer_control_fd88c5ff709cc669468b1a0c4aa801d3_layers.base_layers,
+                layer_control_fd88c5ff709cc669468b1a0c4aa801d3_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_0f81cb9eecf167c6f545cb559eac9d17);
+
+        
+</script>
+</html>

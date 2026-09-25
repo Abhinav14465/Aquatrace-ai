@@ -1,0 +1,1 @@
+"""AIS vessel attribution module for oil-spill source estimation."""
